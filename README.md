@@ -6,6 +6,8 @@ The official implementation of GraphMPA:
 
 A Comprehensive Graph Framework for Question Answering with Mode-Seeking Preference Alignment
 
+Traditional RAG face challenges in achieving global understanding and aligning responses with human ethical and quality preferences. To address these issues, we propose GraphMPA, a comprehensive graph-based framework with mode-seeking preference alignment. Our approach constructs a hierarchical document graph using a general similarity measurement, mimicking human cognitive processes for information understanding and synthesis.
+
 ![graphMPA](img/graphMPA.png)
 
 
@@ -95,7 +97,7 @@ rag.build(
 Sample Question Retrieve:
 
 ```Python
-question="这本书的主要内容是什么?"
+question="What is the main content of this book?"
 context=rag.retrive(question)
 print(context)
 ```
