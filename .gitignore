@@ -1,0 +1,47 @@
+# 忽略所有 .pyc 文件
+*.pyc
+
+# 忽略 Python 虚拟环境
+venv/
+.virtualenv/
+.venv/
+
+# 忽略 pip 缓存目录
+__pycache__/
+*.egg-info/
+dist/
+build/
+
+# 忽略 Jupyter Notebook 检查点
+.ipynb_checkpoints/
+
+# 忽略 IDE 或编辑器生成的文件/目录
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.bak
+
+# 忽略 macOS 相关的文件
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# 忽略 Windows 系统文件
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# 忽略日志文件和数据库文件
+*.log
+*.db
+*.cdb
+
+# 忽略特定的敏感信息文件
+secrets.json
+
+# 如果你的项目使用了 Docker, 可以考虑忽略这些
+docker-compose.override.yml
+.dockerignore
+Dockerfile.dev

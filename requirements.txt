@@ -1,0 +1,21 @@
+CyberDB
+faiss_cpu
+jsonlines
+
+fire
+langchain
+loguru
+networkx
+python_igraph
+leidenalg
+
+peft
+pyarrow
+sentence_transformers
+setuptools
+tiktoken
+tqdm
+
+# if using Mistral
+mistral_common
+mistral_inference
