@@ -8,7 +8,7 @@ A Comprehensive Graph Framework for Question Answering with Mode-Seeking Prefere
 
 Traditional RAG face challenges in achieving global understanding and aligning responses with human ethical and quality preferences. To address these issues, we propose GraphMPA, a comprehensive graph-based framework with mode-seeking preference alignment. Our approach constructs a hierarchical document graph using a general similarity measurement, mimicking human cognitive processes for information understanding and synthesis.
 
-![graphMPA](img/graphMPA.png)
+![graphMPA](img/graphmpa.png)
 
 
 ## Installation
