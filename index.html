@@ -9,10 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: 学术中性色调 -->
-    <!-- Application Structure Plan: 本应用采用主题式仪表板结构，而非线性复述报告。该设计旨在引导用户从“为什么”（核心问题）到“如何”（工作原理），再到“结果如何”（性能表现与分析）。结构包括：1. 概览介绍，阐明问题与方案。2. 通过并排的HTML/CSS图示，将“全局理解”和“偏好对齐”这两个核心挑战进行可视化。3. 使用标签页和步骤化动画，清晰解释GraphMPA的两大核心组件：分层图构建和模式寻求对齐。4. 一个交互式性能仪表板，允许用户通过选择不同的大语言模型（LLM）来动态更新对比图表。5. 一个可折叠的“深度剖析”部分，通过折线图展示关键参数的影响。这种非线性、探索式的结构，能有效降低技术内容的认知负荷，增强用户参与感和理解深度。 -->
-    <!-- Visualization & Content Choices: 1. **核心问题**: 目标是**对比**。使用HTML/CSS构建的静态并列图示，直观展示“碎片化 vs 全局”和“均值寻求 vs 模式寻求”的区别，无需交互，简单明了。2. **GraphMPA原理**: 目标是**解释过程**。分层图构建部分使用JS驱动的HTML/CSS动画，模拟节点聚类和摘要的迭代过程。模式寻求部分通过悬停交互，动态高亮图示和文本，强化概念联系。3. **性能数据**: 目标是**探索与比较**。使用Chart.js的组合条形图，通过单选按钮动态过滤数据。这比静态表格更能揭示不同模型下的性能差异。4. **参数分析**: 目标是**分析关系**。使用Chart.js的折线图展示各参数（层数、Top-k、阈值）与性能的关系，并置于折叠面板中以保持主界面整洁。所有图表均在Canvas上渲染，以符合要求。 -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
     <style>
         body {
             font-family: 'Noto Sans SC', sans-serif;
@@ -64,32 +61,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-        /* Language selector styles */
-        .language-selector {
-            position: relative;
-            display: inline-block;
-        }
-        .language-selector select {
-            appearance: none;
-            background-color: #f1f5f9; /* slate-100 */
-            border: 1px solid #cbd5e1; /* slate-300 */
-            border-radius: 0.375rem; /* rounded-md */
-            padding: 0.5rem 1.5rem 0.5rem 0.75rem;
-            font-size: 0.875rem; /* text-sm */
-            color: #475569; /* slate-600 */
-            cursor: pointer;
-            outline: none;
-        }
-        .language-selector::after {
-            content: '▼';
-            position: absolute;
-            right: 0.75rem;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
-            color: #475569; /* slate-600 */
-            font-size: 0.75rem;
-        }
     </style>
 </head>
 <body class="antialiased">
@@ -98,23 +69,17 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex-shrink-0">
-                    <h1 class="text-xl font-bold text-teal-700" data-key="headerTitle">GraphMPA</h1>
+                    <h1 class="text-xl font-bold text-teal-700">GraphMPA 交互式分析</h1>
                 </div>
                 <nav class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#problem" class="text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium" data-key="navChallenges">核心挑战</a>
-                        <a href="#how-it-works" class="text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium" data-key="navHowItWorks">工作原理</a>
-                        <a href="#performance" class="text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium" data-key="navPerformance">性能仪表板</a>
-                        <a href="#deep-dive" class="text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium" data-key="navDeepDive">深度剖析</a>
-                        <a href="#conclusion" class="text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium" data-key="navConclusion">结论</a>
+                        <a href="#problem" class="text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">核心挑战</a>
+                        <a href="#how-it-works" class="text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">工作原理</a>
+                        <a href="#performance" class="text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">性能仪表板</a>
+                        <a href="#deep-dive" class="text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">深度剖析</a>
+                        <a href="#conclusion" class="text-gray-600 hover:text-teal-600 px-3 py-2 rounded-md text-sm font-medium">结论</a>
                     </div>
                 </nav>
-                <div class="language-selector">
-                    <select id="language-switcher">
-                        <option value="zh-CN">中文</option>
-                        <option value="en">English</option>
-                    </select>
-                </div>
             </div>
         </div>
     </header>
@@ -122,38 +87,38 @@
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
 
         <section id="intro" class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4" data-key="introTitle">面向问答的模式寻求偏好对齐图框架</h1>
-            <p class="max-w-3xl mx-auto text-lg text-slate-600" data-key="introParagraph">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">面向问答的模式寻求偏好对齐图框架</h1>
+            <p class="max-w-3xl mx-auto text-lg text-slate-600">
                 GraphMPA是一个旨在革新检索增强生成(RAG)系统的新框架，它通过创新的图结构和偏好对齐方法，有效解决了现有技术在全局知识理解和生成内容质量上的两大瓶颈。
             </p>
         </section>
 
         <section id="problem" class="mb-20">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-slate-900" data-key="problemSectionTitle">RAG面临的核心挑战</h2>
-                <p class="mt-4 text-lg text-slate-600" data-key="problemSectionParagraph">
+                <h2 class="text-3xl font-bold text-slate-900">RAG面临的核心挑战</h2>
+                <p class="mt-4 text-lg text-slate-600">
                     传统的RAG方法在处理复杂问答时面临两大难题：知识的碎片化和与人类偏好的不一致。GraphMPA针对这两个痛点提出了精准的解决方案。
                 </p>
             </div>
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="diagram-box">
-                    <h3 class="text-xl font-bold mb-4 text-center" data-key="challenge1Title">挑战一：全局理解的缺失</h3>
-                    <p class="text-slate-600 text-center mb-6" data-key="challenge1Paragraph">传统方法仅看到零散的知识点，难以形成连贯的全局视图，导致理解偏差。</p>
+                    <h3 class="text-xl font-bold mb-4 text-center">挑战一：全局理解的缺失</h3>
+                    <p class="text-slate-600 text-center mb-6">传统方法仅看到零散的知识点，难以形成连贯的全局视图，导致理解偏差。</p>
                     <div class="w-full grid grid-cols-2 gap-4 items-center">
                         <div class="text-center p-4 bg-red-50 border border-red-200 rounded-lg">
-                            <h4 class="font-semibold text-red-700" data-key="fragmentedViewTitle">碎片化视图</h4>
+                            <h4 class="font-semibold text-red-700">碎片化视图</h4>
                             <div class="mt-2 space-y-2">
-                                <div class="p-2 bg-white rounded shadow-sm text-xs" data-key="docFragmentA">文档片段 A</div>
-                                <div class="p-2 bg-white rounded shadow-sm text-xs" data-key="docFragmentB">文档片段 B</div>
-                                <div class="p-2 bg-white rounded shadow-sm text-xs" data-key="docFragmentC">文档片段 C</div>
+                                <div class="p-2 bg-white rounded shadow-sm text-xs">文档片段 A</div>
+                                <div class="p-2 bg-white rounded shadow-sm text-xs">文档片段 B</div>
+                                <div class="p-2 bg-white rounded shadow-sm text-xs">文档片段 C</div>
                             </div>
                         </div>
                         <div class="text-center p-4 bg-green-50 border border-green-200 rounded-lg">
-                            <h4 class="font-semibold text-green-700" data-key="graphMpaGlobalViewTitle">GraphMPA的全局视图</h4>
+                            <h4 class="font-semibold text-green-700">GraphMPA的全局视图</h4>
                             <div class="mt-2 text-xs relative">
-                                <div class="p-2 bg-white rounded-full shadow-sm border-2 border-green-500 absolute top-0 left-1/2 -translate-x-1/2" data-key="summaryChip">摘要</div>
-                                <div class="p-2 bg-white rounded shadow-sm absolute top-16 left-0" data-key="fragmentA">片段 A</div>
-                                <div class="p-2 bg-white rounded shadow-sm absolute top-16 right-0" data-key="fragmentB">片段 B</div>
+                                <div class="p-2 bg-white rounded-full shadow-sm border-2 border-green-500 absolute top-0 left-1/2 -translate-x-1/2">摘要</div>
+                                <div class="p-2 bg-white rounded shadow-sm absolute top-16 left-0">片段 A</div>
+                                <div class="p-2 bg-white rounded shadow-sm absolute top-16 right-0">片段 B</div>
                                 <div class="h-8 w-px bg-green-400 absolute top-8 left-1/2"></div>
                                 <div class="h-px w-1/4 bg-green-400 absolute top-14 left-1/4"></div>
                                 <div class="h-px w-1/4 bg-green-400 absolute top-14 right-1/4"></div>
@@ -164,23 +129,23 @@
                     </div>
                 </div>
                 <div class="diagram-box">
-                    <h3 class="text-xl font-bold mb-4 text-center" data-key="challenge2Title">挑战二：与人类偏好不一致</h3>
-                    <p class="text-slate-600 text-center mb-6" data-key="challenge2Paragraph">标准方法倾向于生成“平均化”的平庸答案，而GraphMPA则寻求最优的答案模式。</p>
+                    <h3 class="text-xl font-bold mb-4 text-center">挑战二：与人类偏好不一致</h3>
+                    <p class="text-slate-600 text-center mb-6">标准方法倾向于生成“平均化”的平庸答案，而GraphMPA则寻求最优的答案模式。</p>
                     <div class="w-full grid grid-cols-2 gap-4 items-center">
                         <div class="text-center p-4 bg-red-50 border border-red-200 rounded-lg h-full">
-                            <h4 class="font-semibold text-red-700" data-key="meanSeekingTitle">均值寻求 (DPO)</h4>
+                            <h4 class="font-semibold text-red-700">均值寻求 (DPO)</h4>
                              <div class="relative w-full h-24 mt-2">
                                 <div class="absolute bottom-0 left-0 w-full h-1 bg-slate-200"></div>
                                 <div class="absolute bottom-0 w-16 h-16 bg-red-300/50 blur-lg" style="left: 50%; transform: translateX(-50%);"></div>
-                                <div class="absolute bottom-1 left-1/2 -translate-x-1/2 text-sm font-bold text-red-600" data-key="mediocreText">平庸</div>
+                                <div class="absolute bottom-1 left-1/2 -translate-x-1/2 text-sm font-bold text-red-600">平庸</div>
                             </div>
                         </div>
                         <div class="text-center p-4 bg-green-50 border border-green-200 rounded-lg h-full">
-                            <h4 class="font-semibold text-green-700" data-key="modeSeekingTitle">模式寻求 (GraphMPA)</h4>
+                            <h4 class="font-semibold text-green-700">模式寻求 (GraphMPA)</h4>
                             <div class="relative w-full h-24 mt-2">
                                 <div class="absolute bottom-0 left-0 w-full h-1 bg-slate-200"></div>
                                 <div class="absolute bottom-0 w-8 h-20 bg-green-400/70" style="left: 65%; transform: translateX(-50%);"></div>
-                                <div class="absolute bottom-1 left-[65%] -translate-x-1/2 text-sm font-bold text-green-700" data-key="optimalText">最优</div>
+                                <div class="absolute bottom-1 left-[65%] -translate-x-1/2 text-sm font-bold text-green-700">最优</div>
                             </div>
                         </div>
                     </div>
@@ -190,55 +155,55 @@
 
         <section id="how-it-works" class="mb-20">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-slate-900" data-key="howItWorksSectionTitle">GraphMPA 工作原理</h2>
-                <p class="mt-4 text-lg text-slate-600" data-key="howItWorksSectionParagraph">
+                <h2 class="text-3xl font-bold text-slate-900">GraphMPA 工作原理</h2>
+                <p class="mt-4 text-lg text-slate-600">
                     GraphMPA通过两大核心组件协同工作：创新的图构建方法和高效的偏好对齐策略。
                 </p>
             </div>
             <div>
                 <div class="mb-6 flex justify-center border-b border-slate-200">
-                    <button id="tab-graph" class="tab-btn tab-active px-6 py-3 border-b-2 transition-colors duration-300" data-key="tabGraph">1. 分层图构建</button>
-                    <button id="tab-align" class="tab-btn tab-inactive px-6 py-3 border-b-2 transition-colors duration-300" data-key="tabAlign">2. 模式寻求对齐</button>
+                    <button id="tab-graph" class="tab-btn tab-active px-6 py-3 border-b-2 transition-colors duration-300">1. 分层图构建</button>
+                    <button id="tab-align" class="tab-btn tab-inactive px-6 py-3 border-b-2 transition-colors duration-300">2. 模式寻求对齐</button>
                 </div>
                 <div id="content-graph" class="tab-content p-4 md:p-8 bg-white rounded-lg shadow">
-                    <p class="text-slate-600 mb-6 text-center max-w-2xl mx-auto" data-key="graphContentParagraph">
+                    <p class="text-slate-600 mb-6 text-center max-w-2xl mx-auto">
                         GraphMPA模仿人类认知过程，将海量文档构建成一个多层次的知识图谱。这个过程通过迭代地分组（社区检测）和总结，从具体细节中提炼出高层概念，从而实现真正的全局理解。
                     </p>
                     <div class="grid md:grid-cols-4 gap-4 items-start text-center">
                         <div id="step1" class="step p-4">
-                            <div class="text-3xl mb-2">①</div><h4 class="font-bold mb-2" data-key="step1Title">文档分割</h4><p class="text-sm text-slate-500" data-key="step1Desc">将原始文本切分为小文档和摘要文档。</p>
+                            <div class="text-3xl mb-2">①</div><h4 class="font-bold mb-2">文档分割</h4><p class="text-sm text-slate-500">将原始文本切分为小文档和摘要文档。</p>
                         </div>
                         <div id="step2" class="step p-4">
-                            <div class="text-3xl mb-2">②</div><h4 class="font-bold mb-2" data-key="step2Title">图层构建</h4><p class="text-sm text-slate-500" data-key="step2Desc">基于语义相似度，连接文档节点，构成初始图层。</p>
+                            <div class="text-3xl mb-2">②</div><h4 class="font-bold mb-2">图层构建</h4><p class="text-sm text-slate-500">基于语义相似度，连接文档节点，构成初始图层。</p>
                         </div>
                         <div id="step3" class="step p-4">
-                             <div class="text-3xl mb-2">③</div><h4 class="font-bold mb-2" data-key="step3Title">社区检测</h4><p class="text-sm text-slate-500" data-key="step3Desc">将语义相近的节点聚类成“社区”。</p>
+                             <div class="text-3xl mb-2">③</div><h4 class="font-bold mb-2">社区检测</h4><p class="text-sm text-slate-500">将语义相近的节点聚类成“社区”。</p>
                         </div>
                         <div id="step4" class="step p-4">
-                             <div class="text-3xl mb-2">④</div><h4 class="font-bold mb-2" data-key="step4Title">迭代摘要</h4><p class="text-sm text-slate-500" data-key="step4Desc">为每个社区生成摘要，作为更高层图的新节点，并重复此过程。</p>
+                             <div class="text-3xl mb-2">④</div><h4 class="font-bold mb-2">迭代摘要</h4><p class="text-sm text-slate-500">为每个社区生成摘要，作为更高层图的新节点，并重复此过程。</p>
                         </div>
                     </div>
                 </div>
                 <div id="content-align" class="tab-content hidden p-4 md:p-8 bg-white rounded-lg shadow">
-                    <p class="text-slate-600 mb-6 text-center max-w-2xl mx-auto" data-key="alignContentParagraph">
+                    <p class="text-slate-600 mb-6 text-center max-w-2xl mx-auto">
                         GraphMPA不依赖昂贵的大模型，而是利用小型模型自动合成偏好数据，并采用创新的“模式寻求”损失函数进行训练。这使得模型能生成更专注、更符合人类高质量标准的答案，而非平庸的“平均答案”。
                     </p>
                      <div class="flex flex-col md:flex-row items-center justify-center gap-8">
                         <div class="text-center">
-                            <h4 class="text-lg font-semibold mb-2" data-key="advantagesTitle">优势</h4>
+                            <h4 class="text-lg font-semibold mb-2">优势</h4>
                             <ul class="text-left space-y-2 text-slate-600">
-                                <li class="flex items-start"><span class="text-green-500 mr-2">✓</span><span data-key="advantage1"><strong>资源高效:</strong> 使用小型LLM合成数据。</span></li>
-                                <li class="flex items-start"><span class="text-green-500 mr-2">✓</span><span data-key="advantage2"><strong>高质量输出:</strong> 寻求最优答案模式，而非均值。</span></li>
-                                <li class="flex items-start"><span class="text-green-500 mr-2">✓</span><span data-key="advantage3"><strong>可解释性:</strong> 偏好数据包含推理过程，使答案更透明。</span></li>
+                                <li class="flex items-start"><span class="text-green-500 mr-2">✓</span><span><strong>资源高效:</strong> 使用小型LLM合成数据。</span></li>
+                                <li class="flex items-start"><span class="text-green-500 mr-2">✓</span><span><strong>高质量输出:</strong> 寻求最优答案模式，而非均值。</span></li>
+                                <li class="flex items-start"><span class="text-green-500 mr-2">✓</span><span><strong>可解释性:</strong> 偏好数据包含推理过程，使答案更透明。</span></li>
                             </ul>
                         </div>
                         <div class="w-full max-w-sm p-4 border rounded-lg bg-slate-50">
-                             <h4 class="font-semibold text-center mb-2" data-key="trainingDataExampleTitle">训练数据示例</h4>
+                             <h4 class="font-semibold text-center mb-2">训练数据示例</h4>
                              <div class="text-xs space-y-2">
-                                <p><strong class="text-teal-700" data-key="queryLabel">查询:</strong> <span data-key="queryText">临床绒毛膜羊膜炎与组织学诊断是否对应？</span></p>
-                                <p><strong class="text-teal-700" data-key="contextLabel">上下文:</strong> <span data-key="contextText">[ ... 조직학적 융모양막염은 임상적으로 명백하든 아니든 감염의 신뢰할 수 있는 지표입니다 ... ]</span></p>
-                                <p><strong class="text-green-600" data-key="preferredAnswerLabel">偏好答案 (yw):</strong> <span data-key="preferredAnswerText">###推理: Histologic chorioamnionitis is a reliable indicator of infection whether or not it is clinically apparent. ###答案: 是的，组织学诊断与临床感染指标显著相关。</span></p>
-                                <p><strong class="text-red-600" data-key="nonPreferredAnswerLabel">非偏好答案 (yl):</strong> <span data-key="nonPreferredAnswerText">###答案: 是的。</span></p>
+                                <p><strong class="text-teal-700">查询:</strong> 临床绒毛膜羊膜炎与组织学诊断是否对应？</p>
+                                <p><strong class="text-teal-700">上下文:</strong> [ ... 조직학적 융모양막염은 임상적으로 명백하든 아니든 감염의 신뢰할 수 있는 지표입니다 ... ]</p>
+                                <p><strong class="text-green-600">偏好答案 (yw):</strong> ###推理: Histologic chorioamnionitis is a reliable indicator of infection whether or not it is clinically apparent. ###答案: 是的，组织学诊断与临床感染指标显著相关。</p>
+                                <p><strong class="text-red-600">非偏好答案 (yl):</strong> ###答案: 是的。</p>
                             </div>
                         </div>
                     </div>
@@ -248,14 +213,14 @@
 
         <section id="performance" class="mb-20">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-slate-900" data-key="performanceSectionTitle">性能仪表板</h2>
-                <p class="mt-4 text-lg text-slate-600" data-key="performanceSectionParagraph">
+                <h2 class="text-3xl font-bold text-slate-900">性能仪表板</h2>
+                <p class="mt-4 text-lg text-slate-600">
                     GraphMPA在多个基准测试中持续超越现有SOTA方法，甚至包括使用GPT-4等更大模型的系统。通过下方选项，交互式地探索其在不同LLM骨干上的性能表现。
                 </p>
             </div>
             <div class="bg-white p-6 rounded-lg shadow">
                 <div class="flex justify-center items-center gap-4 md:gap-8 mb-6 flex-wrap">
-                    <span class="font-medium text-slate-700" data-key="selectLlmLabel">选择LLM骨干:</span>
+                    <span class="font-medium text-slate-700">选择LLM骨干:</span>
                     <div class="flex gap-2 md:gap-4 rounded-lg p-1 bg-slate-100">
                         <label class="cursor-pointer"><input type="radio" name="llm" value="LLaMa 8B" class="sr-only peer"><span class="block px-4 py-2 rounded-md text-sm peer-checked:bg-teal-600 peer-checked:text-white transition-colors">LLaMa 8B</span></label>
                         <label class="cursor-pointer"><input type="radio" name="llm" value="Qwen 7B" class="sr-only peer" checked><span class="block px-4 py-2 rounded-md text-sm peer-checked:bg-teal-600 peer-checked:text-white transition-colors">Qwen 7B</span></label>
@@ -271,19 +236,19 @@
         
         <section id="deep-dive" class="mb-20">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-slate-900" data-key="deepDiveSectionTitle">深度剖析：关键参数影响</h2>
-                <p class="mt-4 text-lg text-slate-600" data-key="deepDiveSectionParagraph">
+                <h2 class="text-3xl font-bold text-slate-900">深度剖析：关键参数影响</h2>
+                <p class="mt-4 text-lg text-slate-600">
                     模型的性能不仅取决于其架构，还受到关键参数的精细调节。此部分深入探讨了图层数、检索文档数和相似度阈值对GraphMPA性能的具体影响。
                 </p>
             </div>
             <div class="space-y-4 max-w-4xl mx-auto">
                 <div class="accordion-item bg-white rounded-lg shadow-sm">
                     <button class="accordion-header w-full flex justify-between items-center p-5 text-left font-semibold">
-                        <span data-key="layersImpactTitle">图中层数 (n_layers) 的影响</span>
+                        <span>图中层数 (n_layers) 的影响</span>
                         <span class="accordion-icon transition-transform duration-300">▼</span>
                     </button>
                     <div class="accordion-content hidden p-5 border-t border-slate-200">
-                        <p class="text-slate-600 mb-4" data-key="layersImpactParagraph">性能在层数从1增加到2时提升，但超过2层后趋于平稳甚至下降。这表明过多的层次会导致“过度摘要”，丢失关键信息。最佳深度似乎在2层左右，实现了高层概念与底层细节的最佳平衡。</p>
+                        <p class="text-slate-600 mb-4">性能在层数从1增加到2时提升，但超过2层后趋于平稳甚至下降。这表明过多的层次会导致“过度摘要”，丢失关键信息。最佳深度似乎在2层左右，实现了高层概念与底层细节的最佳平衡。</p>
                         <div class="chart-container" style="height: 300px;">
                             <canvas id="layersChart"></canvas>
                         </div>
@@ -291,11 +256,11 @@
                 </div>
                  <div class="accordion-item bg-white rounded-lg shadow-sm">
                     <button class="accordion-header w-full flex justify-between items-center p-5 text-left font-semibold">
-                        <span data-key="topKImpactTitle">检索Top-k规模的影响</span>
+                        <span>检索Top-k规模的影响</span>
                         <span class="accordion-icon transition-transform duration-300">▼</span>
                     </button>
                     <div class="accordion-content hidden p-5 border-t border-slate-200">
-                        <p class="text-slate-600 mb-4" data-key="topKImpactParagraph">随着Top-k值的增加，性能先升后降。这是因为过多的文档会引入不相关的“噪声”上下文，干扰模型判断。经过偏好对齐训练的模型对噪声的抵抗力更强，性能下降更平缓。这证明了训练的有效性。</p>
+                        <p class="text-slate-600 mb-4">随着Top-k值的增加，性能先升后降。这是因为过多的文档会引入不相关的“噪声”上下文，干扰模型判断。经过偏好对齐训练的模型对噪声的抵抗力更强，性能下降更平缓。这证明了训练的有效性。</p>
                         <div class="chart-container" style="height: 300px;">
                             <canvas id="topkChart"></canvas>
                         </div>
@@ -303,11 +268,11 @@
                 </div>
                 <div class="accordion-item bg-white rounded-lg shadow-sm">
                     <button class="accordion-header w-full flex justify-between items-center p-5 text-left font-semibold">
-                        <span data-key="tauImpactTitle">相似度阈值 (τ) 的影响</span>
+                        <span>相似度阈值 (τ) 的影响</span>
                         <span class="accordion-icon transition-transform duration-300">▼</span>
                     </button>
                     <div class="accordion-content hidden p-5 border-t border-slate-200">
-                        <p class="text-slate-600 mb-4" data-key="tauImpactParagraph">相似度阈值决定了图中边的稀疏程度。性能在τ≈0.5时达到峰值。过低的阈值会引入过多弱相关边，增加噪声；过高的阈值则可能切断有用的弱关联。但总体而言，模型性能对该参数不敏感，表现出良好的鲁棒性。</p>
+                        <p class="text-slate-600 mb-4">相似度阈值决定了图中边的稀疏程度。性能在τ≈0.5时达到峰值。过低的阈值会引入过多弱相关边，增加噪声；过高的阈值则可能切断有用的弱关联。但总体而言，模型性能对该参数不敏感，表现出良好的鲁棒性。</p>
                         <div class="chart-container" style="height: 300px;">
                             <canvas id="tauChart"></canvas>
                         </div>
@@ -317,21 +282,21 @@
         </section>
 
         <section id="conclusion" class="bg-white p-8 rounded-lg shadow">
-            <h2 class="text-3xl font-bold text-slate-900 text-center mb-8" data-key="conclusionSectionTitle">结论与未来展望</h2>
+            <h2 class="text-3xl font-bold text-slate-900 text-center mb-8">结论与未来展望</h2>
             <div class="grid md:grid-cols-2 gap-8">
                 <div>
-                    <h3 class="text-xl font-semibold mb-3 text-teal-700" data-key="coreContributionsTitle">核心贡献</h3>
-                    <p class="text-slate-600" data-key="coreContributionsParagraph">
+                    <h3 class="text-xl font-semibold mb-3 text-teal-700">核心贡献</h3>
+                    <p class="text-slate-600">
                         GraphMPA通过其创新的**分层图表示**和**模式寻求偏好对齐**策略，成功地提升了RAG系统在问答任务中的性能和效率。它不仅解决了知识的全局理解难题，还以资源友好的方式实现了与人类偏好的深度对齐，为开发更智能、更可靠的问答系统开辟了新路径。
                     </p>
                 </div>
                 <div>
-                    <h3 class="text-xl font-semibold mb-3 text-teal-700" data-key="futureDirectionsTitle">未来方向</h3>
+                    <h3 class="text-xl font-semibold mb-3 text-teal-700">未来方向</h3>
                      <ul class="list-disc list-inside space-y-2 text-slate-600">
-                        <li data-key="futureDirection1">探索GraphMPA与更大规模模型的结合潜力。</li>
-                        <li data-key="futureDirection2">深入研究模式寻求策略在更多生成任务中的应用。</li>
-                        <li data-key="futureDirection3">开发自适应算法，动态确定最优图深度和检索参数。</li>
-                        <li data-key="futureDirection4">比较并融合GraphMPA与最大熵等其他SOTA方法的优势。</li>
+                        <li>探索GraphMPA与更大规模模型的结合潜力。</li>
+                        <li>深入研究模式寻求策略在更多生成任务中的应用。</li>
+                        <li>开发自适应算法，动态确定最优图深度和检索参数。</li>
+                        <li>比较并融合GraphMPA与最大熵等其他SOTA方法的优势。</li>
                     </ul>
                 </div>
             </div>
@@ -341,271 +306,34 @@
 
     <footer class="bg-slate-800 text-slate-300 mt-16">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-sm">
-            <p data-key="footerLine1">基于论文 "A Comprehensive Graph Framework for Question Answering with Mode-Seeking Preference Alignment" 生成的交互式报告。</p>
-            <p data-key="footerLine2">本页面仅为技术演示，所有数据和结论均源自原始论文。</p>
+            <p>本页面仅为技术演示，所有数据和结论均源自原始论文。</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Language content
-            const translations = {
-                'zh-CN': {
-                    headerTitle: 'GraphMPA',
-                    navChallenges: '核心挑战',
-                    navHowItWorks: '工作原理',
-                    navPerformance: '性能仪表板',
-                    navDeepDive: '深度剖析',
-                    navConclusion: '结论',
-                    introTitle: '面向问答的模式寻求偏好对齐图框架',
-                    introParagraph: 'GraphMPA是一个旨在革新检索增强生成(RAG)系统的新框架，它通过创新的图结构和偏好对齐方法，有效解决了现有技术在全局知识理解和生成内容质量上的两大瓶颈。',
-                    problemSectionTitle: 'RAG面临的核心挑战',
-                    problemSectionParagraph: '传统的RAG方法在处理复杂问答时面临两大难题：知识的碎片化和与人类偏好的不一致。GraphMPA针对这两个痛点提出了精准的解决方案。',
-                    challenge1Title: '挑战一：全局理解的缺失',
-                    challenge1Paragraph: '传统方法仅看到零散的知识点，难以形成连贯的全局视图，导致理解偏差。',
-                    fragmentedViewTitle: '碎片化视图',
-                    docFragmentA: '文档片段 A',
-                    docFragmentB: '文档片段 B',
-                    docFragmentC: '文档片段 C',
-                    graphMpaGlobalViewTitle: 'GraphMPA的全局视图',
-                    summaryChip: '摘要',
-                    fragmentA: '片段 A',
-                    fragmentB: '片段 B',
-                    challenge2Title: '挑战二：与人类偏好不一致',
-                    challenge2Paragraph: '标准方法倾向于生成“平均化”的平庸答案，而GraphMPA则寻求最优的答案模式。',
-                    meanSeekingTitle: '均值寻求 (DPO)',
-                    mediocreText: '平庸',
-                    modeSeekingTitle: '模式寻求 (GraphMPA)',
-                    optimalText: '最优',
-                    howItWorksSectionTitle: 'GraphMPA 工作原理',
-                    howItWorksSectionParagraph: 'GraphMPA通过两大核心组件协同工作：创新的图构建方法和高效的偏好对齐策略。',
-                    tabGraph: '1. 分层图构建',
-                    tabAlign: '2. 模式寻求对齐',
-                    graphContentParagraph: 'GraphMPA模仿人类认知过程，将海量文档构建成一个多层次的知识图谱。这个过程通过迭代地分组（社区检测）和总结，从具体细节中提炼出高层概念，从而实现真正的全局理解。',
-                    step1Title: '文档分割',
-                    step1Desc: '将原始文本切分为小文档和摘要文档。',
-                    step2Title: '图层构建',
-                    step2Desc: '基于语义相似度，连接文档节点，构成初始图层。',
-                    step3Title: '社区检测',
-                    step3Desc: '将语义相近的节点聚类成“社区”。',
-                    step4Title: '迭代摘要',
-                    step4Desc: '为每个社区生成摘要，作为更高层图的新节点，并重复此过程。',
-                    alignContentParagraph: 'GraphMPA不依赖昂贵的大模型，而是利用小型模型自动合成偏好数据，并采用创新的“模式寻求”损失函数进行训练。这使得模型能生成更专注、更符合人类高质量标准的答案，而非平庸的“平均答案”。',
-                    advantagesTitle: '优势',
-                    advantage1: '<strong>资源高效:</strong> 使用小型LLM合成数据。',
-                    advantage2: '<strong>高质量输出:</strong> 寻求最优答案模式，而非均值。',
-                    advantage3: '<strong>可解释性:</strong> 偏好数据包含推理过程，使答案更透明。',
-                    trainingDataExampleTitle: '训练数据示例',
-                    queryLabel: '查询:',
-                    queryText: '临床绒毛膜羊膜炎与组织学诊断是否对应？',
-                    contextLabel: '上下文:',
-                    contextText: '[ ... 조직학적 융모양막염은 임상적으로 명백하든 아니든 감염의 신뢰할 수 있는 지표입니다 ... ]',
-                    preferredAnswerLabel: '偏好答案 (yw):',
-                    preferredAnswerText: '###推理: Histologic chorioamnionitis is a reliable indicator of infection whether or not it is clinically apparent. ###答案: 是的，组织学诊断与临床感染指标显著相关。',
-                    nonPreferredAnswerLabel: '非偏好答案 (yl):',
-                    nonPreferredAnswerText: '###答案: 是的。',
-                    performanceSectionTitle: '性能仪表板',
-                    performanceSectionParagraph: 'GraphMPA在多个基准测试中持续超越现有SOTA方法，甚至包括使用GPT-4等更大模型的系统。通过下方选项，交互式地探索其在不同LLM骨干上的性能表现。',
-                    selectLlmLabel: '选择LLM骨干:',
-                    chartSummaryPrefix: '在 ',
-                    chartSummarySuffix: ' 模型上, GraphMPA 相较于其他基线平均性能提升约 ',
-                    chartSummarySuffixEnd: '%。',
-                    chartTitlePerf: '骨干模型性能对比',
-                    yAxisLabelPerf: '性能得分 (越高越好)',
-                    deepDiveSectionTitle: '深度剖析：关键参数影响',
-                    deepDiveSectionParagraph: '模型的性能不仅取决于其架构，还受到关键参数的精细调节。此部分深入探讨了图层数、检索文档数和相似度阈值对GraphMPA性能的具体影响。',
-                    layersImpactTitle: '图中层数 (n_layers) 的影响',
-                    layersImpactParagraph: '性能在层数从1增加到2时提升，但超过2层后趋于平稳甚至下降。这表明过多的层次会导致“过度摘要”，丢失关键信息。最佳深度似乎在2层左右，实现了高层概念与底层细节的最佳平衡。',
-                    topKImpactTitle: '检索Top-k规模的影响',
-                    topKImpactParagraph: '随着Top-k值的增加，性能先升后降。这是因为过多的文档会引入不相关的“噪声”上下文，干扰模型判断。经过偏好对齐训练的模型对噪声的抵抗力更强，性能下降更平缓。这证明了训练的有效性。',
-                    tauImpactTitle: '相似度阈值 (τ) 的影响',
-                    tauImpactParagraph: '相似度阈值决定了图中边的稀疏程度。性能在τ≈0.5时达到峰值。过低的阈值会引入过多弱相关边，增加噪声；过高的阈值则可能切断有用的弱关联。但总体而言，模型性能对该参数不敏感，表现出良好的鲁棒性。',
-                    chartTitleLayers: '性能 vs. 图层数',
-                    chartTitleTopK: '性能 vs. Top-K',
-                    chartTitleTau: '性能 vs. 相似度阈值 τ',
-                    yAxisLabelParam: '性能得分',
-                    conclusionSectionTitle: '结论与未来展望',
-                    coreContributionsTitle: '核心贡献',
-                    coreContributionsParagraph: 'GraphMPA通过其创新的<strong>分层图表示</strong>和<strong>模式寻求偏好对齐</strong>策略，成功地提升了RAG系统在问答任务中的性能和效率。它不仅解决了知识的全局理解难题，还以资源友好的方式实现了与人类偏好的深度对齐，为开发更智能、更可靠的问答系统开辟了新路径。',
-                    futureDirectionsTitle: '未来方向',
-                    futureDirection1: '探索GraphMPA与更大规模模型的结合潜力。',
-                    futureDirection2: '深入研究模式寻求策略在更多生成任务中的应用。',
-                    futureDirection3: '开发自适应算法，动态确定最优图深度和检索参数。',
-                    futureDirection4: '比较并融合GraphMPA与最大熵等其他SOTA方法的优势。',
-                    footerLine1: '基于论文 "A Comprehensive Graph Framework for Question Answering with Mode-Seeking Preference Alignment" 生成的交互式报告。',
-                    footerLine2: '本页面仅为技术演示，所有数据和结论均源自原始论文。',
-                    trainedModelLabel: '训练后模型',
-                    untrainedModelLabel: '未训练模型',
-                    basicRAGLabel: '基础RAG',
-                    raptorLabel: 'RAPTOR',
-                    lightGraphRAGLabel: 'LightGraphRAG',
-                    graphMpaLabel: 'GraphMPA (我们)'
-                },
-                'en': {
-                    headerTitle: 'GraphMPA',
-                    navChallenges: 'Core Challenges',
-                    navHowItWorks: 'How It Works',
-                    navPerformance: 'Performance Dashboard',
-                    navDeepDive: 'Deep Dive',
-                    navConclusion: 'Conclusion',
-                    introTitle: 'A Comprehensive Graph Framework for Question Answering with Mode-Seeking Preference Alignment',
-                    introParagraph: 'GraphMPA, a novel framework designed to revolutionize Retrieval-Augmented Generation (RAG) systems. It effectively addresses two major bottlenecks in existing techniques: global knowledge understanding and generation content quality, through innovative graph structures and preference alignment methods.',
-                    problemSectionTitle: 'Core Challenges Facing RAG',
-                    problemSectionParagraph: 'Traditional RAG methods face two major difficulties in handling complex question answering: knowledge fragmentation and inconsistency with human preferences. GraphMPA offers precise solutions to these pain points.',
-                    challenge1Title: 'Challenge One: Lack of Global Understanding',
-                    challenge1Paragraph: 'Traditional methods only see scattered knowledge points, making it difficult to form a coherent global view, leading to understanding deviations.',
-                    fragmentedViewTitle: 'Fragmented View',
-                    docFragmentA: 'Document Fragment A',
-                    docFragmentB: 'Document Fragment B',
-                    docFragmentC: 'Document Fragment C',
-                    graphMpaGlobalViewTitle: 'GraphMPA\'s Global View',
-                    summaryChip: 'Summary',
-                    fragmentA: 'Fragment A',
-                    fragmentB: 'Fragment B',
-                    challenge2Title: 'Challenge Two: Inconsistency with Human Preferences',
-                    challenge2Paragraph: 'Standard methods tend to generate "averaged" mediocre answers, while GraphMPA seeks optimal answer patterns.',
-                    meanSeekingTitle: 'Mean-Seeking (DPO)',
-                    mediocreText: 'Mediocre',
-                    modeSeekingTitle: 'Mode-Seeking (GraphMPA)',
-                    optimalText: 'Optimal',
-                    howItWorksSectionTitle: 'How GraphMPA Works',
-                    howItWorksSectionParagraph: 'GraphMPA operates through two core components: an innovative graph construction method and an efficient preference alignment strategy.',
-                    tabGraph: '1. Hierarchical Graph Construction',
-                    tabAlign: '2. Mode-Seeking Alignment',
-                    graphContentParagraph: 'GraphMPA mimics human cognitive processes to build a multi-layered knowledge graph from vast documents. This process iteratively groups (community detection) and summarizes, extracting high-level concepts from specific details to achieve true global understanding.',
-                    step1Title: 'Document Segmentation',
-                    step1Desc: 'Divides original text into small documents and summary documents.',
-                    step2Title: 'Graph Layer Construction',
-                    step2Desc: 'Connects document nodes based on semantic similarity to form the initial graph layer.',
-                    step3Title: 'Community Detection',
-                    step3Desc: 'Clusters semantically similar nodes into "communities."',
-                    step4Title: 'Iterative Summarization',
-                    step4Desc: 'Generates a summary for each community, forming new nodes for a higher-level graph, and repeats the process.',
-                    alignContentParagraph: 'GraphMPA does not rely on expensive large models; instead, it leverages smaller models to automatically synthesize preference data and uses an innovative "mode-seeking" loss function for training. This enables the model to generate more focused and high-quality answers aligned with human standards, rather than mediocre "average answers."',
-                    advantagesTitle: 'Advantages',
-                    advantage1: '<strong>Resource Efficient:</strong> Uses small LLMs to synthesize data.',
-                    advantage2: '<strong>High-Quality Output:</strong> Seeks optimal answer patterns, not means.',
-                    advantage3: '<strong>Explainability:</strong> Preference data includes reasoning process, making answers more transparent.',
-                    trainingDataExampleTitle: 'Training Data Example',
-                    queryLabel: 'Query:',
-                    queryText: 'Does histologic chorioamnionitis correspond to clinical chorioamnionitis?',
-                    contextLabel: 'Context:',
-                    contextText: '[ ... Histologic chorioamnionitis is a reliable indicator of infection whether or not it is clinically apparent ... ]',
-                    preferredAnswerLabel: 'Preferred Answer (yw):',
-                    preferredAnswerText: '###Reason: Histologic chorioamnionitis is a reliable indicator of infection whether or not it is clinically apparent. ###Answer: Yes, histologic diagnosis is significantly associated with clinical indicators of infection.',
-                    nonPreferredAnswerLabel: 'Non-Preferred Answer (yl):',
-                    nonPreferredAnswerText: '###Answer: Yes.',
-                    performanceSectionTitle: 'Performance Dashboard',
-                    performanceSectionParagraph: 'GraphMPA consistently outperforms existing SOTA methods in various benchmarks, including systems using larger models like GPT-4. Explore its performance on different LLM backbones interactively below.',
-                    selectLlmLabel: 'Select LLM Backbone:',
-                    chartSummaryPrefix: 'On the ',
-                    chartSummarySuffix: ' model, GraphMPA shows an average performance improvement of approximately ',
-                    chartSummarySuffixEnd: '% compared to other baselines.',
-                    chartTitlePerf: 'Performance Comparison for Backbone Model',
-                    yAxisLabelPerf: 'Performance Score (Higher is Better)',
-                    deepDiveSectionTitle: 'Deep Dive: Impact of Key Parameters',
-                    deepDiveSectionParagraph: 'Model performance depends not only on its architecture but also on fine-tuning key parameters. This section delves into the specific impact of graph layers, number of retrieved documents, and similarity threshold on GraphMPA\'s performance.',
-                    layersImpactTitle: 'Impact of Number of Layers (n_layers)',
-                    layersImpactParagraph: 'Performance improves when the number of layers increases from 1 to 2, but tends to stabilize or even decline beyond 2 layers. This indicates that too many layers can lead to "over-summarization," losing critical information. The optimal depth appears to be around 2 layers, achieving the best balance between high-level concepts and low-level details.',
-                    topKImpactTitle: 'Impact of Retrieved Top-k Scale',
-                    topKImpactParagraph: 'As the Top-k value increases, performance initially rises then falls. This is because too many documents introduce irrelevant "noise" context, interfering with the model\'s judgment. Models trained with preference alignment are more resistant to noise, showing a flatter performance decline. This demonstrates the effectiveness of the training.',
-                    tauImpactTitle: 'Impact of Similarity Threshold (τ)',
-                    tauImpactParagraph: 'The similarity threshold determines the sparsity of edges in the graph. Performance peaks at a threshold of approximately 0.5. Too low a threshold introduces too many weakly related edges, increasing noise; too high a threshold might cut off useful weak connections. However, overall, model performance is insensitive to this parameter, showing good robustness.',
-                    chartTitleLayers: 'Performance vs. Number of Layers',
-                    chartTitleTopK: 'Performance vs. Top-K',
-                    chartTitleTau: 'Performance vs. Similarity Threshold τ',
-                    yAxisLabelParam: 'Performance Score',
-                    conclusionSectionTitle: 'Conclusion and Future Directions',
-                    coreContributionsTitle: 'Core Contributions',
-                    coreContributionsParagraph: 'GraphMPA successfully enhances the performance and efficiency of RAG systems in question answering tasks through its innovative <strong>hierarchical graph representation</strong> and <strong>mode-seeking preference alignment</strong> strategy. It not only solves the challenge of global knowledge understanding but also achieves deep alignment with human preferences in a resource-friendly manner, paving new paths for developing more intelligent and reliable QA systems.',
-                    futureDirectionsTitle: 'Future Directions',
-                    futureDirection1: 'Explore the potential of combining GraphMPA with larger-scale models.',
-                    futureDirection2: 'Further research the application of mode-seeking strategies in more generative tasks.',
-                    futureDirection3: 'Develop adaptive algorithms to dynamically determine optimal graph depth and retrieval parameters.',
-                    futureDirection4: 'Compare and integrate the advantages of GraphMPA with other SOTA methods like Maximum Entropy.',
-                    footerLine1: 'Interactive report generated based on the paper "A Comprehensive Graph Framework for Question Answering with Mode-Seeking Preference Alignment".',
-                    footerLine2: 'This page is for technical demonstration purposes only, and all data and conclusions are derived from the original paper.',
-                    trainedModelLabel: 'Trained Model',
-                    untrainedModelLabel: 'Untrained Model',
-                    basicRAGLabel: 'Basic RAG',
-                    raptorLabel: 'RAPTOR',
-                    lightGraphRAGLabel: 'LightGraphRAG',
-                    graphMpaLabel: 'GraphMPA (ours)'
-                }
-            };
-
-            const languageSwitcher = document.getElementById('language-switcher');
-            const htmlElement = document.documentElement;
-
-            function updateContent(lang) {
-                htmlElement.lang = lang;
-                for (const key in translations[lang]) {
-                    const element = document.querySelector(`[data-key="${key}"]`);
-                    if (element) {
-                        // For raw HTML content (e.g., strong tags inside paragraphs)
-                        if (key.includes('Paragraph') || key.includes('advantage')) {
-                            element.innerHTML = translations[lang][key];
-                        } else {
-                            element.textContent = translations[lang][key];
-                        }
-                    }
-                }
-                updatePerformanceChart(document.querySelector('input[name="llm"]:checked').value);
-                createLineChart('layersChart', {
-                    labels: ['1', '2', '3', '4'],
-                    datasets: [
-                        { label: translations[lang].qualityLabel || 'QUALITY', data: [73.1, 73.65, 73.5, 73.4], borderColor: '#0d9488', backgroundColor: '#0d948820' },
-                        { label: translations[lang].pubmedQALabel || 'PubMedQA', data: [72.5, 73.0, 72.8, 72.6], borderColor: '#f97316', backgroundColor: '#f9731620' }
-                    ]
-                }, translations[lang].chartTitleLayers);
-                
-                createLineChart('topkChart', {
-                    labels: ['1', '3', '5', '7', '9'],
-                    datasets: [
-                        { label: translations[lang].trainedModelLabel, data: [72.8, 73.65, 73.4, 73.1, 72.5], borderColor: '#0d9488', backgroundColor: '#0d948820' },
-                        { label: translations[lang].untrainedModelLabel, data: [71.5, 72.2, 71.0, 69.8, 68.5], borderColor: '#f97316', backgroundColor: '#f9731620' }
-                    ]
-                }, translations[lang].chartTitleTopK);
-
-                createLineChart('tauChart', {
-                    labels: ['0.1', '0.3', '0.5', '0.7', '0.9'],
-                    datasets: [
-                        { label: translations[lang].qualityLabel || 'QUALITY', data: [72.9, 73.2, 73.65, 73.3, 72.8], borderColor: '#0d9488', backgroundColor: '#0d948820' },
-                        { label: translations[lang].pubmedQALabel || 'PubMedQA', data: [72.2, 72.6, 73.0, 72.8, 72.4], borderColor: '#f97316', backgroundColor: '#f9731620' }
-                    ]
-                }, translations[lang].chartTitleTau);
-            }
-
-            languageSwitcher.addEventListener('change', (event) => {
-                updateContent(event.target.value);
-            });
-
-            // Initial content setup based on default language (zh-CN)
-            languageSwitcher.value = htmlElement.lang; // Ensure selector matches current lang
-            updateContent(htmlElement.lang); // Call once on load to set initial state
-
             const performanceData = {
                 'LLaMa 8B': {
                     labels: ['QASPER', 'QUALITY', 'RiddleSense', 'PubMedQA', 'MedQA', 'MedMCQA'],
                     datasets: [
-                        { label: 'Basic RAG', data: [0.3599, 41.73, 60.24, 68.80, 57.34, 50.35], backgroundColor: '#fca5a5' },
+                        { label: '基础RAG', data: [0.3599, 41.73, 60.24, 68.80, 57.34, 50.35], backgroundColor: '#fca5a5' },
                         { label: 'RAPTOR', data: [0.3657, 49.66, 45.62, 58.40, 53.10, 50.84], backgroundColor: '#fdba74' },
                         { label: 'LightGraphRAG', data: [0.3585, 50.83, 45.82, 49.00, 45.18, 50.91], backgroundColor: '#fde047' },
-                        { label: 'GraphMPA (ours)', data: [0.3775, 73.65, 47.05, 73.00, 66.54, 64.28], backgroundColor: '#4ade80' }
+                        { label: 'GraphMPA (我们)', data: [0.3775, 73.65, 47.05, 73.00, 66.54, 64.28], backgroundColor: '#4ade80' }
                     ]
                 },
                 'Qwen 7B': {
                     labels: ['QASPER', 'QUALITY', 'RiddleSense', 'PubMedQA', 'MedQA', 'MedMCQA'],
                     datasets: [
-                        { label: 'Basic RAG', data: [0.2654, 65.95, 47.32, 50.67, 50.82, 55.15], backgroundColor: '#fca5a5' },
-                        { label: 'GraphMPA (ours)', data: [0.3734, 47.64, 71.79, 71.92, 61.96, 57.61], backgroundColor: '#4ade80' }
+                        { label: '基础RAG', data: [0.2654, 65.95, 47.32, 50.67, 50.82, 55.15], backgroundColor: '#fca5a5' },
+                        { label: 'GraphMPA (我们)', data: [0.3734, 47.64, 71.79, 71.92, 61.96, 57.61], backgroundColor: '#4ade80' }
                     ]
                 },
                 'Mistral 8B': {
                     labels: ['QASPER', 'QUALITY', 'RiddleSense', 'PubMedQA', 'MedQA', 'MedMCQA'],
                     datasets: [
-                        { label: 'Basic RAG', data: [0.3228, 64.29, 43.64, 66.80, 56.64, 63.93], backgroundColor: '#fca5a5' },
-                        { label: 'GraphMPA (ours)', data: [0.3873, 73.92, 51.76, 72.82, 68.66, 67.06], backgroundColor: '#4ade80' }
+                        { label: '基础RAG', data: [0.3228, 64.29, 43.64, 66.80, 56.64, 63.93], backgroundColor: '#fca5a5' },
+                        { label: 'GraphMPA (我们)', data: [0.3873, 73.92, 51.76, 72.82, 68.66, 67.06], backgroundColor: '#4ade80' }
                     ]
                 }
             };
@@ -639,8 +367,8 @@
                 }
                 
                 const data = performanceData[llm];
-                const graphMPAData = data.datasets.find(d => d.label.includes('GraphMPA') || d.label.includes('GraphMPA (我们)') || d.label.includes('GraphMPA (ours)')).data;
-                const otherDatasets = data.datasets.filter(d => !(d.label.includes('GraphMPA') || d.label.includes('GraphMPA (我们)') || d.label.includes('GraphMPA (ours)')));
+                const graphMPAData = data.datasets.find(d => d.label.includes('GraphMPA')).data;
+                const otherDatasets = data.datasets.filter(d => !d.label.includes('GraphMPA'));
                 
                 let improvementSum = 0;
                 let comparisonCount = 0;
@@ -657,34 +385,16 @@
                 });
                 
                 const avgImprovement = comparisonCount > 0 ? (improvementSum / comparisonCount).toFixed(1) : 0;
-                const currentLang = htmlElement.lang;
-                chartSummaryEl.textContent = translations[currentLang].chartSummaryPrefix + llm + translations[currentLang].chartSummarySuffix + avgImprovement + translations[currentLang].chartSummarySuffixEnd;
-
-                // Update dataset labels for performance chart
-                const updatedDatasets = data.datasets.map(dataset => {
-                    if (dataset.label.includes('Basic RAG')) {
-                        return { ...dataset, label: translations[currentLang].basicRAGLabel };
-                    } else if (dataset.label.includes('RAPTOR')) {
-                        return { ...dataset, label: translations[currentLang].raptorLabel };
-                    } else if (dataset.label.includes('LightGraphRAG')) {
-                        return { ...dataset, label: translations[currentLang].lightGraphRAGLabel };
-                    } else if (dataset.label.includes('GraphMPA')) {
-                        return { ...dataset, label: translations[currentLang].graphMpaLabel };
-                    }
-                    return dataset;
-                });
+                chartSummaryEl.textContent = `在 ${llm} 模型上, GraphMPA 相较于其他基线平均性能提升约 ${avgImprovement}%。`;
 
                 performanceChart = new Chart(perfCtx, {
                     type: 'bar',
-                    data: {
-                        labels: data.labels,
-                        datasets: updatedDatasets
-                    },
+                    data: data,
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
                         plugins: {
-                            title: { display: true, text: `${llm} ${translations[currentLang].chartTitlePerf}`, font: { size: 16 } },
+                            title: { display: true, text: `${llm} 骨干模型性能对比`, font: { size: 16 } },
                             tooltip: { mode: 'index', intersect: false },
                             legend: { position: 'bottom' }
                         },
@@ -696,7 +406,7 @@
                                     }
                                 }
                             },
-                            y: { beginAtZero: true, title: { display: true, text: translations[currentLang].yAxisLabelPerf } }
+                            y: { beginAtZero: true, title: { display: true, text: '性能得分 (越高越好)' } }
                         }
                     }
                 });
@@ -708,7 +418,6 @@
                 });
             });
 
-            // Initial chart load
             updatePerformanceChart('Qwen 7B');
             
             const tabButtons = document.querySelectorAll('.tab-btn');
@@ -757,10 +466,6 @@
 
             const createLineChart = (canvasId, data, title) => {
                 const ctx = document.getElementById(canvasId).getContext('2d');
-                // Destroy existing chart if it exists to prevent overlap
-                if (Chart.getChart(canvasId)) {
-                    Chart.getChart(canvasId).destroy();
-                }
                 new Chart(ctx, {
                     type: 'line',
                     data: data,
@@ -772,7 +477,7 @@
                             title: { display: true, text: title, font: {size: 14} }
                         },
                         scales: {
-                            y: { title: { display: true, text: translations[htmlElement.lang].yAxisLabelParam } }
+                            y: { title: { display: true, text: '性能得分' } }
                         },
                         elements: {
                             line: { tension: 0.3 }
@@ -781,14 +486,13 @@
                 });
             };
             
-            // Initial line charts load (these will be updated by updateContent on language change)
             createLineChart('layersChart', {
                 labels: ['1', '2', '3', '4'],
                 datasets: [
                     { label: 'QUALITY', data: [73.1, 73.65, 73.5, 73.4], borderColor: '#0d9488', backgroundColor: '#0d948820' },
                     { label: 'PubMedQA', data: [72.5, 73.0, 72.8, 72.6], borderColor: '#f97316', backgroundColor: '#f9731620' }
                 ]
-            }, translations[htmlElement.lang].chartTitleLayers);
+            }, '性能 vs. 图层数');
             
             createLineChart('topkChart', {
                 labels: ['1', '3', '5', '7', '9'],
@@ -796,7 +500,7 @@
                     { label: '训练后模型', data: [72.8, 73.65, 73.4, 73.1, 72.5], borderColor: '#0d9488', backgroundColor: '#0d948820' },
                     { label: '未训练模型', data: [71.5, 72.2, 71.0, 69.8, 68.5], borderColor: '#f97316', backgroundColor: '#f9731620' }
                 ]
-            }, translations[htmlElement.lang].chartTitleTopK);
+            }, '性能 vs. Top-K');
 
             createLineChart('tauChart', {
                 labels: ['0.1', '0.3', '0.5', '0.7', '0.9'],
@@ -804,7 +508,8 @@
                     { label: 'QUALITY', data: [72.9, 73.2, 73.65, 73.3, 72.8], borderColor: '#0d9488', backgroundColor: '#0d948820' },
                     { label: 'PubMedQA', data: [72.2, 72.6, 73.0, 72.8, 72.4], borderColor: '#f97316', backgroundColor: '#f9731620' }
                 ]
-            }, translations[htmlElement.lang].chartTitleTau);
+            }, '性能 vs. 相似度阈值 τ');
+
         });
     </script>
 </body>
