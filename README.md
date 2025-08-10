@@ -126,5 +126,31 @@ print(answer)
 GraphMPA is an open-source project, and contributions are warmly welcomed. Whether you're fixing bugs, implementing new features, or enhancing the documentation, your efforts are greatly appreciated.
 
 ## Citing
+```
+@inproceedings{tang-etal-2025-comprehensive,
+    title = "A Comprehensive Graph Framework for Question Answering with Mode-Seeking Preference Alignment",
+    author = "Tang, Quanwei  and
+      Lee, Sophia Yat Mei  and
+      Wu, Junshuang  and
+      Zhang, Dong  and
+      Li, Shoushan  and
+      Cambria, Erik  and
+      Zhou, Guodong",
+    editor = "Che, Wanxiang  and
+      Nabende, Joyce  and
+      Shutova, Ekaterina  and
+      Pilehvar, Mohammad Taher",
+    booktitle = "Findings of the Association for Computational Linguistics: ACL 2025",
+    month = jul,
+    year = "2025",
+    address = "Vienna, Austria",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.findings-acl.1108/",
+    doi = "10.18653/v1/2025.findings-acl.1108",
+    pages = "21504--21523",
+    ISBN = "979-8-89176-256-5",
+    abstract = "Recent advancements in retrieval-augmented generation (RAG) have enhanced large language models in question answering by integrating external knowledge. However, challenges persist in achieving global understanding and aligning responses with human ethical and quality preferences. To address these issues, we propose GraphMPA, a comprehensive graph-based framework with mode-seeking preference alignment. Our approach constructs a hierarchical document graph using a general similarity measurement, mimicking human cognitive processes for information understanding and synthesis. Additionally, we introduce mode-seeking preference optimization to better align model outputs with human preferences through probability-matching constraints. Extensive experiments on six datasets demonstrate the effectiveness of our GraphMPA."
+}
+```
 
 If you find our paper or this repository helpful, please consider citing our work – it’s much appreciated! 😊
